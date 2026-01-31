@@ -14,6 +14,11 @@ import os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from db.database import engine, Base
+from db.models import (  # noqa: F401
+    Agency, AgencyManager, KPI, AgencyKPI, 
+    MonthlyTarget, MonthlyResult, MonthlyReview, 
+    ActionItem, User, Country
+)
 from sqlalchemy import inspect
 
 
