@@ -23,10 +23,25 @@ if DATABASE_URL.startswith("sqlite"):
     )
 else:
     # PostgreSQL or other databases
-    engine = create_engine(
-        DATABASE_URL,
-        echo=False
-    )
+    # Ensure required DB driver is present and fail with a clear message if not
+    try:
+        # For PostgreSQL SQLAlchemy will import the DBAPI (psycopg2)
+        if DATABASE_URL.startswith("postgres") or "postgres" in DATABASE_URL:
+            try:
+                import psycopg2  # noqa: F401
+            except ImportError as e:
+                raise ImportError(
+                    "psycopg2 (psycopg2-binary) is required for PostgreSQL. "
+                    "Install it with `pip install psycopg2-binary` or add it to requirements.txt"
+                ) from e
+
+        engine = create_engine(
+            DATABASE_URL,
+            echo=False
+        )
+    except Exception:
+        # Re-raise to surface the original error to the caller/logs
+        raise
 
 # Session factory
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
