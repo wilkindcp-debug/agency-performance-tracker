@@ -1,0 +1,19 @@
+# Entorno virtual
+venv/
+
+# Archivos de entorno
+.env
+
+# Bases de datos locales
+*.db
+
+# Cache de Python
+__pycache__/
+*.pyc
+
+# Archivos de sistema
+.DS_Store
+
+# Streamlit
+.streamlit/
+
