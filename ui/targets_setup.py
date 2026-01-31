@@ -20,6 +20,18 @@ def render(current_user: Dict[str, Any]):
     st.header("🎯 Objetivos 2026")
     st.markdown("Define los objetivos mensuales por agencia y KPI.")
 
+    # Helpful tip
+    with st.expander("💡 ¿Cómo usar esta pantalla?", expanded=False):
+        st.markdown("""
+        1. **Selecciona** la agencia, año y mes
+        2. **Ingresa** los objetivos para cada KPI
+        3. **Guarda** con el botón correspondiente
+
+        **Atajos útiles:**
+        - 📋 **Copiar a todos los meses**: Usa los mismos objetivos para todo el año
+        - ➡️ **Copiar al mes siguiente**: Útil para ajustes graduales
+        """)
+
     # Get agencies
     agencies = list_agencies(active_only=True)
 

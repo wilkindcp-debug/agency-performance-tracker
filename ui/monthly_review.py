@@ -27,6 +27,19 @@ def render(current_user: Dict[str, Any]):
     st.header("📝 Seguimiento Mensual")
     st.markdown("Registre resultados, notas y acciones para el seguimiento mensual.")
 
+    # Quick guide
+    with st.expander("💡 Guía rápida", expanded=False):
+        st.markdown("""
+        **Completa tu revisión mensual en 4 pasos:**
+
+        1. **📊 Resultados**: Ingresa los números reales del mes
+        2. **📝 Notas**: Explica qué pasó y tu plan de mejora
+        3. **✅ Acciones**: Define tareas concretas para el próximo mes
+        4. **📈 Resumen**: Revisa tu estado general
+
+        💡 *Tip: Completa las notas aunque los resultados sean buenos - ayuda a mantener el historial.*
+        """)
+
     # Get agencies
     agencies = list_agencies(active_only=True)
 

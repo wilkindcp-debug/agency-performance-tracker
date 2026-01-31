@@ -75,10 +75,11 @@ def render_sidebar(user: Dict[str, Any]) -> str:
     with st.sidebar:
         st.title("🏦 Agency Tracker")
 
-        # User info
+        # User info with friendly greeting
         if user:
-            role_badge = "🔑 ADMIN" if user.get("role") == "ADMIN" else "👤 NORMAL"
-            st.markdown(f"**{user.get('username')}** {role_badge}")
+            role_badge = "🔑 Admin" if user.get("role") == "ADMIN" else "👤 Usuario"
+            st.markdown(f"**Hola, {user.get('name', user.get('username'))}!**")
+            st.caption(f"{role_badge}")
 
         st.markdown("---")
 

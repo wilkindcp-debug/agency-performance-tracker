@@ -237,6 +237,8 @@ class User(Base):
     created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
     failed_attempts = Column(Integer, default=0, nullable=False)
     locked_until = Column(DateTime, nullable=True)
+    onboarding_completed = Column(Boolean, default=False, nullable=False)  # UX: first login flow
+    last_login_at = Column(DateTime, nullable=True)  # UX: track activity
 
     # Relationships
     user_agencies = relationship("UserAgency", back_populates="user", cascade="all, delete-orphan")

@@ -20,8 +20,10 @@ from ui.sidebar import render_sidebar
 from ui import (
     agency_setup, agency_list, targets_setup,
     monthly_review, dashboard, login,
-    first_login_security, forgot_password, user_management
+    first_login_security, forgot_password, user_management,
+    dashboard_normal, dashboard_admin
 )
+from services.onboarding_service import update_last_login
 
 
 def init_system():
@@ -57,12 +59,21 @@ def main():
         return
 
     # User is authenticated and has security configured
+    # Update last login timestamp
+    if "last_login_updated" not in st.session_state:
+        update_last_login(current_user["id"])
+        st.session_state.last_login_updated = True
+
     # Render sidebar and get current page
     current_page = render_sidebar(current_user)
 
     # Route to appropriate page
     if current_page == "dashboard":
-        dashboard.render(current_user)
+        # Show different dashboard based on role
+        if current_user.get("role") == "ADMIN":
+            dashboard_admin.render(current_user)
+        else:
+            dashboard_normal.render(current_user)
 
     elif current_page == "agency_list":
         agency_list.render(current_user)
