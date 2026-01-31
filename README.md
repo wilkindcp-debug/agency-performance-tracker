@@ -1,172 +1,203 @@
-# Agency Performance Tracker 🏦
+# Agency Performance Tracker
 
-Plataforma web interna para el seguimiento mensual del desempeño de jefes de agencia.
+A web application for tracking and managing agency performance metrics.
 
-## Características
+## Prerequisites
 
-- ✅ Registro de agencias y jefes
-- ✅ Definición de KPIs por agencia (CS, RIA, MG, CORNERS)
-- ✅ Objetivos 2026 distribuidos por mes
-- ✅ Registro de resultados reales mensuales
-- ✅ Notas de seguimiento ("Qué pasó" y "Plan de mejora")
-- ✅ Checklist de acciones por mes
-- ✅ Dashboard con semáforos y ranking
-- ✅ Histórico completo consultable
+- Python 3.10+
+- Node.js 18+
+- npm or yarn
 
-## Tecnologías
-
-- **Python** 3.11+
-- **Streamlit** - Frontend/UI
-- **SQLAlchemy** - ORM
-- **SQLite** (desarrollo) / **PostgreSQL** (producción)
-
-## Instalación
-
-### 1. Clonar/copiar el proyecto
-
-```bash
-cd agency-performance-tracker
-```
-
-### 2. Crear y activar entorno virtual
-
-```bash
-python -m venv venv
-source venv/bin/activate  # Mac/Linux
-# o en Windows: venv\Scripts\activate
-```
-
-### 3. Instalar dependencias
-
-```bash
-pip install -U pip
-pip install -r requirements.txt
-```
-
-### 4. Configurar variables de entorno
-
-```bash
-cp .env.example .env
-# Editar .env si necesita cambiar la base de datos
-```
-
-### 5. Inicializar base de datos
-
-```bash
-python -m db.init_db
-```
-
-### 6. Cargar KPIs iniciales
-
-```bash
-python -m scripts.init_kpis
-```
-
-### 7. Ejecutar la aplicación
-
-```bash
-streamlit run main.py
-```
-
-La aplicación estará disponible en `http://localhost:8501`
-
-## Estructura del Proyecto
+## Project Structure
 
 ```
 agency-performance-tracker/
-├── main.py                 # Entrada principal
-├── requirements.txt        # Dependencias
-├── .env.example           # Variables de entorno ejemplo
-├── README.md
-│
-├── db/
-│   ├── __init__.py
-│   ├── database.py        # Configuración SQLAlchemy
-│   ├── models.py          # Modelos ORM
-│   └── init_db.py         # Script inicialización DB
-│
-├── services/
-│   ├── __init__.py
-│   ├── agency_service.py  # Lógica de agencias
-│   ├── kpi_service.py     # Lógica de KPIs
-│   ├── tracking_service.py # Objetivos/resultados/notas
-│   └── utils.py           # Utilidades
-│
-├── ui/
-│   ├── __init__.py
-│   ├── sidebar.py         # Navegación
-│   ├── agency_setup.py    # Crear agencia
-│   ├── agency_list.py     # Listar agencias
-│   ├── targets_setup.py   # Objetivos mensuales
-│   ├── monthly_review.py  # Seguimiento mensual
-│   └── dashboard.py       # Dashboard general
-│
-├── scripts/
-│   ├── __init__.py
-│   └── init_kpis.py       # Seed de KPIs
-│
-└── data/
-    └── exports/           # Backups/exports
+├── backend/          # FastAPI backend
+│   ├── app/          # Application code
+│   ├── scripts/      # Database initialization scripts
+│   └── requirements.txt
+├── frontend/         # React + Vite frontend
+│   ├── src/
+│   └── package.json
+└── README.md
 ```
 
-## Uso
+## Backend Setup
 
-### Crear una Agencia
+### 1. Navigate to backend directory
 
-1. Ir a "Crear Agencia" en el menú lateral
-2. Completar datos de la agencia y del jefe
-3. Seleccionar los KPIs a medir
-4. Guardar
-
-### Definir Objetivos
-
-1. Ir a "Objetivos 2026"
-2. Seleccionar agencia y mes
-3. Ingresar valores objetivo para cada KPI
-4. Usar "Copiar a todos los meses" para replicar
-
-### Seguimiento Mensual
-
-1. Ir a "Seguimiento Mensual"
-2. Seleccionar agencia, año y mes
-3. Pestaña "Resultados": ingresar valores reales
-4. Pestaña "Notas": documentar qué pasó y plan de mejora
-5. Pestaña "Acciones": crear checklist de tareas
-
-### Dashboard
-
-- Vista general de todas las agencias
-- Ranking por cumplimiento
-- Alertas de agencias con KPIs en rojo
-
-## KPIs Predefinidos
-
-| Código | Descripción | Unidad |
-|--------|-------------|--------|
-| Capital Services | Capital Services | trx |
-| RIA | Remesas Internacionales | units |
-| MG | MoneyGram | units |
-| CORNERS | Puntos de Venta | units |
-
-## Semáforos
-
-- 🟢 **Verde**: >= 100% del objetivo
-- 🟡 **Amarillo**: 90-99% del objetivo
-- 🔴 **Rojo**: < 90% del objetivo
-
-## Producción (PostgreSQL)
-
-Para usar PostgreSQL en producción, edite `.env`:
-
-```
-DATABASE_URL=postgresql+psycopg2://usuario:password@host:5432/nombre_db
+```bash
+cd backend
 ```
 
-Y descomente `psycopg2-binary` en `requirements.txt`.
+### 2. Create virtual environment
 
-## Soporte
+```bash
+python -m venv venv
+```
 
-Para reportar problemas o sugerencias, contacte al equipo de desarrollo.
+### 3. Activate virtual environment
 
----
-© 2026 - Agency Performance Tracker
+**Windows:**
+```bash
+venv\Scripts\activate
+```
+
+**macOS/Linux:**
+```bash
+source venv/bin/activate
+```
+
+### 4. Install dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### 5. Configure environment
+
+Copy the example environment file and adjust as needed:
+
+```bash
+cp .env.example .env
+```
+
+Environment variables:
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `DATABASE_URL` | Database connection string | `sqlite:///./agency_tracker.db` |
+| `SECRET_KEY` | JWT secret key | Change in production |
+| `ALGORITHM` | JWT algorithm | `HS256` |
+| `ACCESS_TOKEN_EXPIRE_MINUTES` | Access token expiry | `30` |
+| `REFRESH_TOKEN_EXPIRE_DAYS` | Refresh token expiry | `7` |
+
+### 6. Initialize database
+
+```bash
+python scripts/init_all.py
+```
+
+This will:
+- Create all database tables
+- Seed initial KPIs
+- Seed countries for security questions
+- Create default admin user
+
+### 7. Run development server
+
+```bash
+uvicorn app.main:app --reload --port 8000
+```
+
+The API will be available at:
+- API: http://localhost:8000
+- Docs: http://localhost:8000/docs
+- Health: http://localhost:8000/health
+
+## Frontend Setup
+
+### 1. Navigate to frontend directory
+
+```bash
+cd frontend
+```
+
+### 2. Install dependencies
+
+```bash
+npm install
+```
+
+### 3. Configure environment
+
+Copy the example environment file:
+
+```bash
+cp .env.example .env
+```
+
+Environment variables:
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `VITE_API_URL` | Backend API URL | `http://localhost:8000/api` |
+
+### 4. Run development server
+
+```bash
+npm run dev
+```
+
+The frontend will be available at http://localhost:5173
+
+## Running Both Services
+
+Open two terminals:
+
+**Terminal 1 - Backend:**
+```bash
+cd backend
+venv\Scripts\activate  # or source venv/bin/activate on macOS/Linux
+uvicorn app.main:app --reload --port 8000
+```
+
+**Terminal 2 - Frontend:**
+```bash
+cd frontend
+npm run dev
+```
+
+## Default Credentials
+
+After running `init_all.py`, an admin user is created:
+
+- **Username:** admin
+- **Password:** admin
+
+> Change the password after first login in production.
+
+## API Endpoints
+
+| Endpoint | Description |
+|----------|-------------|
+| `/api/auth/*` | Authentication (login, refresh, etc.) |
+| `/api/users/*` | User management |
+| `/api/agencies/*` | Agency CRUD |
+| `/api/kpis/*` | KPI definitions |
+| `/api/targets/*` | Performance targets |
+| `/api/results/*` | Monthly results |
+| `/api/reviews/*` | Monthly reviews |
+| `/api/dashboard/*` | Dashboard data |
+| `/api/countries/*` | Security countries |
+
+## Available Scripts
+
+### Backend
+
+```bash
+python scripts/init_all.py    # Initialize database with seed data
+```
+
+### Frontend
+
+```bash
+npm run dev      # Start development server
+npm run build    # Build for production
+npm run preview  # Preview production build
+npm run lint     # Run ESLint
+```
+
+## Tech Stack
+
+### Backend
+- FastAPI
+- SQLAlchemy
+- Pydantic
+- SQLite (dev) / PostgreSQL (prod)
+
+### Frontend
+- React 18
+- TypeScript
+- Vite
+- React Router
+- TanStack Query
+- i18next
