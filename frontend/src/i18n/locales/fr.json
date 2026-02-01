@@ -160,7 +160,8 @@
     "whatHappened": "Que s'est-il passe ce mois-ci?",
     "improvementPlan": "Plan d'amelioration",
     "noPlanDefined": "Pas de plan defini",
-    "kpis": "KPIs"
+    "kpis": "KPIs",
+    "createFirstAgency": "Creez votre premiere agence pour commencer"
   },
   "agencies": {
     "create": "Creer Agence",
@@ -169,13 +170,15 @@
     "noAgenciesDesc": "Creez votre premiere agence pour commencer",
     "name": "Nom de l'agence",
     "city": "Ville",
-    "subtitle": "Gerer les agences et leurs configurations"
+    "subtitle": "Gerer les agences et leurs configurations",
+    "noKpis": "Aucun KPI assigne"
   },
   "targets": {
     "setTargets": "Definir les Objectifs Mensuels",
     "copyToAll": "Copier a tous les mois",
     "copiedToAll": "Objectifs copies a tous les mois",
     "subtitle": "Configurer les objectifs mensuels par agence",
+    "noKpis": "Aucun KPI disponible",
     "noKpisDesc": "Cette agence n'a pas de KPIs assignes"
   },
   "reviews": {
@@ -198,6 +201,8 @@
     "pending": "En attente",
     "total": "Total",
     "subtitle": "Gerer les utilisateurs du systeme",
-    "activeUsers": "Utilisateurs actifs"
+    "activeUsers": "Utilisateurs actifs",
+    "admins": "Admins",
+    "list": "Liste des utilisateurs"
   }
 }

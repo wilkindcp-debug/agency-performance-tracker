@@ -160,7 +160,8 @@
     "whatHappened": "What happened this month?",
     "improvementPlan": "Improvement Plan",
     "noPlanDefined": "No plan defined",
-    "kpis": "KPIs"
+    "kpis": "KPIs",
+    "createFirstAgency": "Create your first agency to get started"
   },
   "agencies": {
     "create": "Create Agency",
@@ -169,13 +170,15 @@
     "noAgenciesDesc": "Create your first agency to get started",
     "name": "Agency Name",
     "city": "City",
-    "subtitle": "Manage agencies and their settings"
+    "subtitle": "Manage agencies and their settings",
+    "noKpis": "No KPIs assigned"
   },
   "targets": {
     "setTargets": "Set Monthly Targets",
     "copyToAll": "Copy to All Months",
     "copiedToAll": "Targets copied to all months",
     "subtitle": "Configure monthly targets by agency",
+    "noKpis": "No KPIs Available",
     "noKpisDesc": "This agency has no KPIs assigned"
   },
   "reviews": {
@@ -198,6 +201,8 @@
     "pending": "Pending",
     "total": "Total",
     "subtitle": "Manage system users",
-    "activeUsers": "Active users"
+    "activeUsers": "Active users",
+    "admins": "Admins",
+    "list": "User List"
   }
 }
